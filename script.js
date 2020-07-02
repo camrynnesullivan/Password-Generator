@@ -6,20 +6,40 @@ var generateBtn = document.querySelector("#generate");
 var bucketLowercase = "abcdefghijklmnopqrstuvwxyz".split("");
 var bucketUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 var bucketNumber = "1234567890".split("");
-var bucketSpecialCharacters = "!@#$%^&*".split("");
+var bucketSymbol = "!@#$%^&*".split("");
 
 
 // We need to find out what the user wants
 function generatePassword() {
-// How many characters does the user want?
-passwordLength=prompt("Choose a character length between 8-128 for your new password.");
-// Password must be between 8-128 characters long
+  
+  // How many characters does the user want?
+  passwordLength=prompt("Choose a character length between 8-128 for your new password.");
+        
+  // Password must be between 8-128 characters long
 if (passwordLength < 8 || passwordLength > 128) {
+         
   //Alert User
   alert("Please choose a number between 8 and 128");
+               
   // Return to beginning of function
   return generatePassword();
 }
+
+// Make a list of characters based on what the user wants - one master array
+
+//Master Array that will hold all user characters chosen
+var bucketMain = [];
+
+//Setting the base of user choices to false  - "Cancel" on prompt
+var number = false;
+var symbols = false;
+var uppercase = false;
+var lowercase = false;
+//Setting the base of user choice to "true" to zero so we can count up with every "OK" click
+var confirms = 0;
+
+
+
 
 
 
