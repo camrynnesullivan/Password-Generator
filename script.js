@@ -1,7 +1,32 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+
+// We need a list of characters
+var bucketLowercase = "abcdefghijklmnopqrstuvwxyz".split("");
+var bucketUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+var bucketNumber = "1234567890".split("");
+var bucketSpecialCharacters = "!@#$%^&*".split("");
+
+
+// We need to find out what the user wants
+function generatePassword() {
+// How many characters does the user want?
+passwordLength=prompt("Choose a character length between 8-128 for your new password.");
+// Password must be between 8-128 characters long
+if (passwordLength < 8 || passwordLength > 128) {
+  //Alert User
+  alert("Please choose a number between 8 and 128");
+  // Return to beginning of function
+  return generatePassword();
+}
+
+
+
+
 // Write password to the #password input
+
+
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
@@ -11,13 +36,9 @@ function writePassword() {
 
 //  Make Function Generate Password
 
-// We need a list of characters
 
-function generatePassword() {
-  var bucketLowercase = "abcdefghijklmnopqrstuvwxyz".split("");
-  var bucketUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  var bucketNumber = "1234567890".split("");
-  var bucketSpecialCharacters = "!@#$%^&*".split("");
+
+
 
   // We need to find out what the user wants
 
@@ -28,8 +49,9 @@ function generatePassword() {
   var passwordUppercase = confirm("Would you like uppercase letters?");
   var passwordNumbers = confirm("Would you like numbers?");
   var passwordSpecialCharacters = confirm("Would you like special characters?");
+  var passwordComplete =[];
 
-  //Make a list of characters based on what the user wants one master array
+  //Make a list of characters based on what the user wants - one master array
 
   // If they ask for lowercase characters add lowercase
 
@@ -43,15 +65,22 @@ function generatePassword() {
 
   // Pick out the characters needed from the user input randomly
 
+  //Put them all in one place -password
+
+// Send them back out
+
+
+
+  for (var i=0; i< passwordLength;i++) {
+
+  }
   for (var i = 0; i < passwordLength; i++) {
     if (passwordLowercase) {
       passwordComplete +=
         bucketLowercase[Math.floor(Math.random() * bucketLowercase.length)];
     }
 
-    if (passwordLength < 8 || passwordLength > 128) {
-      alert("Error: Please choose a number between 8 and 128");
-      return "";
+    
     } else if (passwordLength >= 8 || passwordLength <= 128) {
     }
     // console.log(
