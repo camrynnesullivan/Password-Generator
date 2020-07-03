@@ -1,6 +1,8 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 
 // We need a list of characters
 var bucketLowercase = "abcdefghijklmnopqrstuvwxyz".split("");
@@ -8,136 +10,118 @@ var bucketUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 var bucketNumber = "1234567890".split("");
 var bucketSymbol = "!@#$%^&*".split("");
 
+// console.log(bucketLowercase, bucketUppercase, bucketNumber, bucketSymbol);
 
 // We need to find out what the user wants
 function generatePassword() {
-  
   // How many characters does the user want?
-  passwordLength=prompt("Choose a character length between 8-128 for your new password.");
-        
+  passwordLength = prompt(
+    "Choose a character length between 8-128 for your new password."
+  );
+
   // Password must be between 8-128 characters long
-if (passwordLength < 8 || passwordLength > 128) {
-         
-  //Alert User
-  alert("Please choose a number between 8 and 128");
-               
-  // Return to beginning of function
-  return generatePassword();
+  if (passwordLength < 8 || passwordLength > 128) {
+    //Alert User
+    alert("Please choose a number between 8 and 128");
+
+    // Return to beginning of function
+    return generatePassword();
+  }
+
+  // Make a list of characters based on what the user wants - one master array
+
+  //Master Array that will hold all user characters chosen, new password array that will hold all new password characters
+  var newpassword = [];
+  var bucketMain = [];
+
+  //Setting the base of user choices to false  - "Cancel" on prompt
+  var lowercase = false;
+  var uppercase = false;
+  var number = false;
+  var symbol = false;
+  //Setting the base of user choice to "true" to zero so we can count up with every "OK" click
+  var confirms = 0;
+
+  //Prompts to recieve input from what the user wants
+  number = confirm("Do you want numbers in your new password?");
+
+  symbol = confirm("Do you want symbols in your new password?");
+
+  uppercase = confirm("Do you want uppercase letters in your new password?");
+
+  lowercase = confirm("Do you want lowercase letters in you new password?");
+
+  // console.log(number);
+
+  // If they ask for lowercase characters add lowercase
+
+  if (lowercase) {
+    bucketMain = bucketMain.concat(bucketLowercase);
+    confirms = confirms + 1;
+  }
+  //if they ask for uppercase characters add uppercase
+  if (uppercase) {
+    bucketMain = bucketMain.concat(bucketUppercase);
+    confirms = confirms + 1;
+  }
+  //if they ask for number add numbers
+  if (number) {
+    bucketMain = bucketMain.concat(bucketNumber);
+    confirms = confirms + 1;
+  }
+
+  //if they ask for symbols add symbols
+  if (symbol) {
+    bucketMain = bucketMain.concat(bucketSymbol);
+    confirms = confirms + 1;
+  }
+
+  if (bucketMain.length == 0) {
+    alert("Pick a character.");
+    return generatePassword();
+  }
+
+  // console.log(confirms);
+
+  //Look for the random characters to be pulled for new password
+
+  if (lowercase) {
+    newpassword.push(bucketLowercase[randomPull(bucketLowercase)]);
+  }
+
+  if (uppercase) {
+    newpassword.push(bucketUppercase[randomPull(bucketUppercase)]);
+  }
+
+  if (number) {
+    newpassword.push(bucketNumber[randomPull(bucketNumber)]);
+  }
+
+  if (symbol) {
+    newpassword.push(bucketSymbol[randomPull(bucketSymbol)]);
+  }
+
+  console.log(newpassword);
+
+  // Pick out the characters needed from the user input randomly
+  for (var i = 0; i < passwordLength - confirms; i++) {
+    newpassword.unshift(bucketMain[randomPull(bucketMain)]);
+  }
+
+  //Put them all in one place -password
+  newpassword = newpassword.join("");
+  console.log(newpassword);
+  return newpassword;
 }
 
-// Make a list of characters based on what the user wants - one master array
-
-//Master Array that will hold all user characters chosen
-var bucketMain = [];
-
-//Setting the base of user choices to false  - "Cancel" on prompt
-var number = false;
-var symbols = false;
-var uppercase = false;
-var lowercase = false;
-//Setting the base of user choice to "true" to zero so we can count up with every "OK" click
-var confirms = 0;
-
-
-
-
-
-
-
-// Write password to the #password input
-
+function randomPull(string) {
+  return Math.floor(Math.random() * string.length);
+}
+//Write password to the #password input
+// Send them back out
 
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 }
-
-//  Make Function Generate Password
-
-
-
-
-
-  // We need to find out what the user wants
-
-  // Upper case letters, lower case, numbers, special characters
-
-  var passwordLength = prompt("Pick a password length  8 and 128.");
-  var passwordLowercase = confirm("Would you like lowercase letters?");
-  var passwordUppercase = confirm("Would you like uppercase letters?");
-  var passwordNumbers = confirm("Would you like numbers?");
-  var passwordSpecialCharacters = confirm("Would you like special characters?");
-  var passwordComplete =[];
-
-  //Make a list of characters based on what the user wants - one master array
-
-  // If they ask for lowercase characters add lowercase
-
-  //if they ask for uppercase characters add uppercase
-
-  //if they ask for number add numbers
-
-  //if they ask for special characters add special characters
-
-  //depending on user input add length of characters
-
-  // Pick out the characters needed from the user input randomly
-
-  //Put them all in one place -password
-
-// Send them back out
-
-
-
-  for (var i=0; i< passwordLength;i++) {
-
-  }
-  for (var i = 0; i < passwordLength; i++) {
-    if (passwordLowercase) {
-      passwordComplete +=
-        bucketLowercase[Math.floor(Math.random() * bucketLowercase.length)];
-    }
-
-    
-    } else if (passwordLength >= 8 || passwordLength <= 128) {
-    }
-    // console.log(
-    //   passwordLength,
-    //   passwordLowercase,
-    //   passwordUppercase,
-    //   passwordNumbers,
-    //   passwordSpecialCharacters
-    // );
-  }
-
-  var passwordComplete = "";
-}
-
-// Pompt Alert for number characters
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
-
-//Pick out random items from list of characters
-
-//Put them all in one place -password
-
-// Send them back out
-
-// GIVEN I need a new, secure password
-// WHEN I click the button to generate a password
-// THEN I am presented with a series of prompts for password criteria
-// WHEN prompted for password criteria
-// THEN I select which criteria to include in the password
-// WHEN prompted for the length of the password
-// THEN I choose a length of at least 8 characters and no more than 128 characters
-// WHEN prompted for character types to include in the password
-// THEN I choose lowercase, uppercase, numeric, and/or special characters
-// WHEN I answer each prompt
-// THEN my input should be validated and at least one character type should be selected
-// WHEN all prompts are answered
-// THEN a password is generated that matches the selected criteria
-// WHEN the password is generated
-// THEN the password is either displayed in an alert or written to the page
